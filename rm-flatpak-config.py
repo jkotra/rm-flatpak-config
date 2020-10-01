@@ -21,6 +21,7 @@ FLATPAK_USER_CONFIG_PATH = os.path.expanduser("~") + "/.var/app/"
 
 def show_version():
     print("rm-flatpak-config v0.1")
+    subprocess.run(["flatpak", "--version"])
     exit(0)
 
 def list_configs() -> List:
@@ -33,7 +34,7 @@ def list_configs() -> List:
     return config_files
 
 
-def delete(config_dir) -> bool:
+def delete(config_dir):
     if args.debug:
         print("Deleting", config_dir)
 
