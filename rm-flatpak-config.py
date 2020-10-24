@@ -20,9 +20,9 @@ FLATPAK_SYSTEM_CONFIG_PATH = "/var/lib/flatpak/app"
 FLATPAK_USER_CONFIG_PATH = os.path.expanduser("~") + "/.var/app/"
 
 def show_version():
-    print("rm-flatpak-config v0.1")
-    subprocess.run(["flatpak", "--version"])
-    exit(0)
+    print("rm-flatpak-config v0.2")
+    flatpak_v = subprocess.run(["flatpak", "--version"])
+    exit(flatpak_v.returncode)
 
 def list_configs() -> List:
     config_files = []
@@ -36,7 +36,7 @@ def list_configs() -> List:
 
 def delete(config_dir):
     if args.debug:
-        print("Deleting", config_dir)
+        print("[DEBUG] Deleting", config_dir)
 
     if FLATPAK_SYSTEM_CONFIG_PATH in config_dir:
         subprocess.run(["sudo", "rm", "-rf", config_dir])
@@ -52,19 +52,20 @@ if __name__ == "__main__":
     conf_files = list_configs()
 
     index = 0
+    BOLD = '\033[1m'
+    END = '\033[0m'
 
+    print(BOLD, 'SNO\t', "Application ID", END)
     for _, d, t in conf_files:
-        print(index, d, t)
+        print(index, '\t', d.center(10), "({})".format(t))
         index += 1
     prompt = "\nChoose [0-{}]:".format(len(conf_files))
     user_choice = input(prompt)
     if args.debug:
-        print("user_choice=", user_choice)
+        print("[DEBUG] user_choice = ", user_choice)
 
     try:
         user_choice = conf_files[int(user_choice)]
-        if args.debug:
-            print("user_choice=", user_choice)
     except IndexError:
         print("no such thing exists!")
         exit(1)
