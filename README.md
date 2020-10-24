@@ -24,11 +24,19 @@ run the program either with python as a prefix or directly:
 a list will appear to choose from:
 
 ```
-0 io.github.Hexchat user
-1 org.gimp.GIMP user
-2 net.mediaarea.MediaInfo user
+ SNO	 Application ID 
+0 	 com.github.johnfactotum.Foliate (system)
+1 	 io.github.Hexchat (user)
+2 	 org.gimp.GIMP (user)
+3 	 org.gnome.Glade (user)
+4 	 org.gnome.Boxes (user)
+5 	 com.bitstower.Markets (user)
+6 	 net.mediaarea.MediaInfo (user)
+7 	 com.github.johnfactotum.Foliate (user)
+8 	 org.pitivi.Pitivi (user)
 
-Choose [0-3]:
+Choose [0-9]:
+
 ```
 
 ## Dependencies
