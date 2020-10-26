@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import tarfile
 import time
 from typing import List
 import argparse
