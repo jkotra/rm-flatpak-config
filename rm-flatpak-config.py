@@ -15,18 +15,15 @@ parser.add_argument('--version','-v', action='store_true', dest="version")
 
 args = parser.parse_args()
 
-FLATPAK_SYSTEM_CONFIG_PATH = "/var/lib/flatpak/app"
 FLATPAK_USER_CONFIG_PATH = os.path.expanduser("~") + "/.var/app/"
 
 def show_version():
-    print("rm-flatpak-config v0.2")
+    print("rm-flatpak-config v0.3")
     flatpak_v = subprocess.run(["flatpak", "--version"])
     exit(flatpak_v.returncode)
 
 def list_configs() -> List:
     config_files = []
-    config_files = [(FLATPAK_SYSTEM_CONFIG_PATH, path, "system")
-                    for path in os.listdir(FLATPAK_SYSTEM_CONFIG_PATH)]
     config_files += [(FLATPAK_USER_CONFIG_PATH, path, "user")
                      for path in os.listdir(FLATPAK_USER_CONFIG_PATH)]
 
@@ -36,10 +33,6 @@ def list_configs() -> List:
 def delete(config_dir):
     if args.debug:
         print("[DEBUG] Deleting", config_dir)
-
-    if FLATPAK_SYSTEM_CONFIG_PATH in config_dir:
-        subprocess.run(["sudo", "rm", "-rf", config_dir])
-    else:
         shutil.rmtree(config_dir)
 
 
